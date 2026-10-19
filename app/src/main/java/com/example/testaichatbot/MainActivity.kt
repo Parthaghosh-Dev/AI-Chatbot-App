@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
-    private val groqApiKey = "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"
+    private val groqApiKey = "YOUR_GROQ_API_KEY_HERE"
 
     private val chatList = mutableListOf<ChatModel>()
     private lateinit var chatAdapter: ChatAdapter
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val jsonBody = JSONObject().apply {
-                    put("model", "openai/gpt-oss-120b")
+                    put("model", "llama-3.3-70b-versatile")
                     val messagesArray = JSONArray().apply {
                         put(JSONObject().apply {
                             put("role", "user")
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        chatList[botIndex].message = "Error ${response.code}: ${responseData ?: response.message}"
+                        chatList[botIndex].message = "Error ${response.code}: Check API Key or Model."
                         chatAdapter.notifyItemChanged(botIndex)
                     }
                 }
